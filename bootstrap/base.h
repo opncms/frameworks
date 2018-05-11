@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////
 //
-//  Copyright (C) 2013-2015 Vladimir Yakunin (kpeo) <opncms@gmail.com>
+//  Copyright (C) 2013-2018 Vladimir Yakunin (kpeo) <opncms@gmail.com>
 //
 //  The redistribution terms are provided in the COPYRIGHT.txt file
 //  that must be distributed with this source code.
@@ -16,6 +16,7 @@
 #include <booster/function.h>
 #include <string>
 
+//#include <opncms/tools.h>
 #include <opncms/module/plugin.h>
 
 ///
@@ -23,26 +24,28 @@
 ///
 
 //Bitmask can represents page in several menu
-enum menu_t
+enum menu_mask
 {
-	MENU_HEADER		= 1,
-	MENU_SIDEBAR	= 2,
-	MENU_USERBAR	= 4
+		MENU_HEADER		= 1,
+		MENU_SIDEBAR	= 2,
+		MENU_USERBAR	= 4
 };
 
 struct page_t
 {
-	int id;
-	int order_id;
-	std::string name;
-	std::string icon;
-	std::string url;
-	std::string type;
-	bool authed;
-	bool active;
-	int menu;
-	cppcms::json::value data;
+        int id;
+        int order_id;
+        std::string name;
+        std::string icon;
+        std::string url;
+        std::string type;
+        bool authed;
+        bool active;
+        int menu;
+        cppcms::json::value data;
 };
+
+typedef std::vector< std::pair<std::string, std::string> > menu_t;
 
 namespace apps { class site; }
 
@@ -80,16 +83,12 @@ struct base : public cppcms::base_content {
 
 	std::string filename;
 
-	page_t page;
-/*	std::map <int, std::pair<std::string,std::string> > menu_header;
-	std::map <int, std::pair<std::string,std::string> > menu_sidebar;
-	std::map <int, std::pair<std::string,std::string> > menu_userbar;
-*/
-	std::vector <std::pair<std::string,std::string> > menu_header;
-	std::vector <std::pair<std::string,std::string> > menu_sidebar;
-	std::vector <std::pair<std::string,std::string> > menu_userbar;
-
 	std::string name, title, content, sidebar;
+
+	page_t page;
+	menu_t menu_header;
+	menu_t menu_sidebar;
+	menu_t menu_userbar;
 
 	std::vector<Plugin *> plugins;
 	bool is_css;
