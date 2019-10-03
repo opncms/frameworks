@@ -169,23 +169,16 @@ $('#button_id').click(function(){
 <% include plugin_js_foot() %>
 <% end %>
 
-<% template lang_old() %>
-	<% foreach r rowid idx in languages %>
-		<% item %><a id="hdrm_<%= r.second %>" linkindex="<%= idx %>" href="/<%= r.second %>"><%= r.first %></a>
-		<% end %><% empty %><a id="hdrm_last" linkindex="100"<!-- loop.index --> href=""></a>
-	<% end %>
-<% end template %>
-
 <% template lang() %>
 	<% foreach r rowid idx in languages %>
 		<% item %><a linkindex="<%= idx %>" onclick="opncms.set_locale('<%= r.second %>');" href="#"><%= r.first %></a>
-		<% end %><% empty %><a id="hdrm_last" linkindex="100"<!-- loop.index --> href=""></a>
+		<% end %><% empty %><a id="hdrm_last" linkindex="100" href="#"><!-- use loop.index for linkindex --></a>
 	<% end %>
 <% end template %>
 
 <% template footer() %>
 	<div class="lang"><% include lang() %></div>
-	<% if not empty copyright %><%= copyright %><% else %><div id="copyright">Powered by opnCMS &copy; 2010-2015</div><% end %>
+	<% if not empty copyright %><%= copyright %><% else %><div id="copyright">Powered by opnCMS &copy; 2010-2019</div><% end %>
 <% end template %>
 
 <% template header() %>
